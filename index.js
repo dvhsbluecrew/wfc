@@ -57,6 +57,12 @@ function usernamesignin() {
 	document.cookie = "token=9YTO";
 }
 
+function signout() {
+	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	alreadysignedin.setAttribute('hidden','true');
+	signinform.removeAttribute('hidden');
+}
+
 
 
 
