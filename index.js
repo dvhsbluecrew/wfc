@@ -3,7 +3,6 @@ window.onload = function() {
   signinstartup();
 };
 
-
 function signinstartup() {
 	var signinform = document.getElementById('signinform');
 	var alreadysignedin = document.getElementById('alreadysignedin');
@@ -18,7 +17,7 @@ function signinstartup() {
 		var token = getCookie(token);
 
 		//Send it to the login server to verify login
-		var urlstring = "https://script.google.com/macros/s/AKfycbwf392-istjSgvNWVR10L_PFLbLhQuq8L-xr_3culH12E1NJko/exec?&token=" + token;
+		var urlstring = "https://script.google.com/macros/s/AKfycbwf392-istjSgvNWVR10L_PFLbLhQuq8L-xr_3culH12E1NJko/exec?type=0&token=" + token;
 
 		var settings = {
 		  "async": true,
