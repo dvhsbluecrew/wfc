@@ -10,7 +10,7 @@ function signinstartup() {
 	var loginname = document.getElementById('loginname');
 
 	//First, check for cookies.
-	if(getCookie(token) == null) {
+	if(getCookie("token") == null) {
 		signinform.removeAttribute('hidden');
 	}
 	else {
@@ -53,10 +53,7 @@ $(function() { //shorthand document.ready function
 });
 
 function usernamesignin() {
-	console.log("done!");
 	document.cookie = "token=9YTO";
-	document.cookie = "username=John Doe";
-	console.log(document.cookie);
 }
 
 
