@@ -40,9 +40,8 @@ function signinstartup() {
 		  	alreadysignedin.removeAttribute('hidden');
 		  }
 		});
-
-		alreadysignedin.removeAttribute('hidden');
 	}
+	return false;
 }
 
 
