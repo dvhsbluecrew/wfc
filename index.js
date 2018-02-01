@@ -7,7 +7,8 @@ window.onload = function() {
 function signinstartup() {
 	var signinform = document.getElementById('signinform');
 	var alreadysignedin = document.getElementById('alreadysignedin');
-	var loginname = document.getElementById('loginname');
+	var loginnamefield = document.getElementById('loginname');
+	var continueasfield = document.getElementById('continueas');
 
 	//First, check for cookies.
 	if(getCookie("token") == null) {
@@ -27,13 +28,15 @@ function signinstartup() {
 		}
 
 		$.ajax(settings).done(function (response) {
+			console.log(response);
 		  if(response.error == 2) { //invalid
 		  	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 		  	signinform.removeAttribute('hidden');
 		  }
 		  else if(response.error == 0) { //valid
 		  	document.cookie = "token=" + response.token;
-		  	loginname.innerHTML = response.name;
+		  	loginnamefield.innerHTML = response.name;
+		  	continueasfield.innerHTML = "Continue As " + response.name;
 
 		  	alreadysignedin.removeAttribute('hidden');
 		  }
