@@ -29,7 +29,7 @@ function signinstartup() {
 		$.ajax(settings).done(function (response) {
 			console.log(response);
 		  if(response.error == 2) { //invalid
-		  	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		  	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 		  	signinform.removeAttribute('hidden');
 		  }
 		  else if(response.error == 0) { //valid
@@ -58,7 +58,7 @@ function usernamesignin() {
 }
 
 function signout() {
-	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 	alreadysignedin.setAttribute('hidden','true');
 	signinform.removeAttribute('hidden');
 }
