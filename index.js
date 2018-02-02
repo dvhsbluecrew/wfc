@@ -35,7 +35,7 @@ function signinstartup() {
 		  else if(response.error == 0) { //valid
 		  	document.cookie = "token=" + response.token;
 		  	loginnamefield.innerHTML = response.name;
-		  	continueasfield.innerHTML = "Continue As " + response.name;
+		  	continueasfield.innerHTML = "Continue as " + response.name;
 
 		  	alreadysignedin.removeAttribute('hidden');
 		  }
@@ -44,8 +44,7 @@ function signinstartup() {
 	return false;
 }
 
-
-
+//Username Sign In Function
 $(function() { //shorthand document.ready function
     $('#signinform').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
@@ -90,11 +89,6 @@ function usernamesignin() {
 	  	window.location.replace(redirectlink);
 	  }
 	});
-
-
-
-
-	document.cookie = "token=9YTO; path=/";
 }
 
 function signout() {
