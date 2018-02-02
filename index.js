@@ -54,6 +54,46 @@ $(function() { //shorthand document.ready function
 });
 
 function usernamesignin() {
+	var modalTitle = document.getElementById('modalTitle');
+	var modalBody = document.getElementById('valid');
+
+	$("#myModal").modal();
+	modalTitle.innerHTML = 'Please Wait...';
+	modalBody.innerHTML = 'Signing you in...';
+
+	var username = document.getElementById('inputUsername').value;
+	var password = document.getElementById('inputPassword').value;
+
+	//Send it to the login server to verify login
+	var urlstring = "https://script.google.com/macros/s/AKfycbwf392-istjSgvNWVR10L_PFLbLhQuq8L-xr_3culH12E1NJko/exec?type=1&username=" + username + "&password=" + password;
+
+	var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": urlstring,
+	  "method": "GET"
+	}
+
+	$.ajax(settings).done(function (response) {
+		console.log(response);
+	  if(response.error == 1) { //invalid
+
+	  	modalTitle.innerHTML = 'Invalid Username or Password!';
+	  	modalBody.innerHTML = 'The username and/or password you provided is invalid. Please try again.';
+
+	  	document.getElementById("inputPassword").value = "";
+	  }
+	  else if(response.error == 0) { //valid
+	  	document.cookie = "token=" + response.token + "; path=/";
+	  	
+	  	var redirectlink = "https://dvhsbluecrew.github.io?token=" + response.token;
+	  	window.location.replace(redirectlink);
+	  }
+	});
+
+
+
+
 	document.cookie = "token=9YTO; path=/";
 }
 
