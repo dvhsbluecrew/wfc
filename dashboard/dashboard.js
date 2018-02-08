@@ -57,7 +57,7 @@ function onStartup() {
       else if(response.error == 0) { //valid
         document.cookie = "token=" + response.token;
 
-        editlinks(response.token, response.username);
+        editlinks(response.token, response.name);
         gettabledata(response.token);
         
       }
@@ -83,7 +83,6 @@ function gettabledata(token) {
 
     if(response.error == 0) {
       addtotable(response);
-      drawChart(response.checkedin, response.notcheckedin);
     }
     else {
       notloggedin();
