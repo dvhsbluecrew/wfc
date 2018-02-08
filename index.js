@@ -34,7 +34,7 @@ function signinstartup() {
 		  }
 		  else if(response.error == 0) { //valid
 		  	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-		  	document.cookie = "token=" + response.token;
+		  	document.cookie = "token=" + response.token + "; path=/";
 		  	loginnamefield.innerHTML = response.name;
 		  	continueasfield.innerHTML = "Continue as " + response.name;
 
