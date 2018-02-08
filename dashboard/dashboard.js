@@ -126,6 +126,8 @@ function notloggedin() {
 
 //Sign Out Function
 function signout() {
+  var token = getCookie("token");
+
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
   var signoutbutton = document.getElementById('signoutbutton');
   signoutbutton.innerHTML = "Please Wait...";
