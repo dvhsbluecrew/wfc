@@ -22,7 +22,7 @@
 
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand navfont" href="javascript:void(0)" id="link0">WFC Dashboard</a>
+      <a class="navbar-brand navfont" href="javascript:void(0)">WFC Dashboard</a>
       <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,7 +30,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" id="usernametext">Hello!</a>
+            <a class="nav-link" href="index.html" id="usernametext">Hello!</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" onclick="signout()" href="javascript:void(0);" id="signoutbutton">Sign Out</a>
@@ -47,8 +47,8 @@
       <div class="row">
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
           <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="javascript:void(0)" id="link1">Overview<span class="sr-only">(current)</span></a>
+            <li class="nav-item" id="link1">
+              <a class="nav-link active" href="index.html">Overview<span class="sr-only">(current)</span></a>
             </li>
           </ul>
 
@@ -56,29 +56,29 @@
             <li class="nav-item">
               <a class="nav-link">Check Out / Return</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" target="_blank" id="link2">Check Out Bags</a>
+            <li class="nav-item" id="link2">
+              <a class="nav-link" href="../scanner/scanner.html" target="_blank">Check Out Bags</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" id="link3">Return Bags</a>
+            <li hidden class="nav-item" id="link3">
+              <a class="nav-link" href="returnbag.html">Return Bags</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" id="link4">Recent Activity</a>
+            <li class="nav-item" id="link4">
+              <a class="nav-link" href="recentactivity.html">Recent Activity</a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link">View Checkouts...</a>
+              <a class="nav-link">View Checkouts</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" id="link5">By Bag #</a>
+            <li hidden class="nav-item" id="link5">
+              <a class="nav-link" href="bybag.html">By Bag #</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" id="link6">By Student</a>
+            <li hidden class="nav-item" id="link6">
+              <a class="nav-link" href="bystudent.html">By Student</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" id="link7">Class Stats</a>
+            <li class="nav-item" id="link7">
+              <a class="nav-link" href="classstats.html">Class Stats</a>
             </li>
           </ul>
 
@@ -86,10 +86,10 @@
             <li class="nav-item">
               <a class="nav-link">Settings</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" id="link8">Manage Accounts</a>
+            <li class="nav-item" id="link8">
+              <a class="nav-link" href="accounts.html">Manage Accounts</a>
             </li>
-            <li class="nav-item">
+            <li hidden class="nav-item" id="link9">
               <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1mwcnZaS4qbHgfvUwFtwUgfQRAcUBAo04TfZKruveKrs/edit?usp=sharing" target="_blank">Open Database Spreadsheet</a>
             </li>
           </ul>
@@ -99,31 +99,8 @@
           <h1>Welcome Back!</h1>
           <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
 
-          <!-- <section class="row text-center placeholders">
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <div class="text-muted">Something else</div>
-            </div>
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIABAADcgwAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIABAADcgwAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </section> -->
-
           <h2>Recent Activity</h2>
-          <p>Table displays 100 most recent check-ins. Table refreshes every five seconds.</p>
+          <p>Table displays 100 most recent checkouts and returns.</p>
           <div class="table-responsive">
             <table class="table table-striped" id="tableresults">
               <thead>

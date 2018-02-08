@@ -55,7 +55,7 @@ function onStartup() {
         notloggedin();
       }
       else if(response.error == 0) { //valid
-        editlinks(response.token, response.name);
+        editlinks(response.perms, response.name);
         gettabledata(response.token);
       }
     });
@@ -100,18 +100,15 @@ function addtotable(results) {
 }
 
 //Add Token To Links
-function editlinks(token, username) {
+function editlinks(perms, username) {
   usernametext.innerHTML = "Hello, " + username + "!";
 
-  document.getElementById("link0").href = "https://dvhsbluecrew.github.io/wfc/dashboard/index.html?token=" + token;
-  document.getElementById("link1").href = "https://dvhsbluecrew.github.io/wfc/dashboard/index.html?token=" + token;
-  document.getElementById("link2").href = "https://dvhsbluecrew.github.io/wfc/scanner/scanner.html?token=" + token;
-  document.getElementById("link3").href = "https://dvhsbluecrew.github.io/wfc/dashboard/returnbag.html?token=" + token;
-  document.getElementById("link4").href = "https://dvhsbluecrew.github.io/wfc/dashboard/recentactivity.html?token=" + token;
-  document.getElementById("link5").href = "https://dvhsbluecrew.github.io/wfc/dashboard/bybag.html?token=" + token;
-  document.getElementById("link6").href = "https://dvhsbluecrew.github.io/wfc/dashboard/bystudent.html?token=" + token;
-  document.getElementById("link7").href = "https://dvhsbluecrew.github.io/wfc/dashboard/classstats.html?token=" + token;
-  document.getElementById("link8").href = "https://dvhsbluecrew.github.io/wfc/dashboard/accounts.html?token=" + token;
+  if(perms == 1) {
+    document.getElementById("link3").removeAttribute('hidden');
+    document.getElementById("link5").removeAttribute('hidden');
+    document.getElementById("link6").removeAttribute('hidden');
+    document.getElementById("link9").removeAttribute('hidden');
+  }
 }
 
 //Not Logged In Redirect
