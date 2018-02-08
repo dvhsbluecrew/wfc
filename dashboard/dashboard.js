@@ -79,7 +79,7 @@ function gettabledata(token) {
   };
 
   $.ajax(settings).done(function (response) {
-    console.log(response);
+    //console.log(response);
 
     if(response.error == 0) {
       addtotable(response);
@@ -100,8 +100,6 @@ function addtotable(results) {
     $node.find("td.action").html(results.data[i][1]);
     $node.prependTo("#tablebody");
   }
-
-  setTimeout(refreshtable(), 5000);
 }
 
 //Add Token To Links
