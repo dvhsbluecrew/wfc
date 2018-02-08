@@ -33,6 +33,7 @@ function signinstartup() {
 		  	signinform.removeAttribute('hidden');
 		  }
 		  else if(response.error == 0) { //valid
+		  	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 		  	document.cookie = "token=" + response.token;
 		  	loginnamefield.innerHTML = response.name;
 		  	continueasfield.innerHTML = "Continue as " + response.name;
@@ -83,6 +84,7 @@ function usernamesignin() {
 	  	document.getElementById("inputPassword").value = "";
 	  }
 	  else if(response.error == 0) { //valid
+	  	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 	  	document.cookie = "token=" + response.token + "; path=/";
 	  	
 	  	var redirectlink = "https://dvhsbluecrew.github.io/wfc/dashboard/index.html";
