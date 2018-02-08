@@ -55,11 +55,8 @@ function onStartup() {
         notloggedin();
       }
       else if(response.error == 0) { //valid
-        document.cookie = "token=" + response.token;
-
         editlinks(response.token, response.name);
         gettabledata(response.token);
-        
       }
     });
   }
