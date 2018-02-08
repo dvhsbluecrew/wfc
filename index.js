@@ -85,7 +85,7 @@ function usernamesignin() {
 	  else if(response.error == 0) { //valid
 	  	document.cookie = "token=" + response.token + "; path=/";
 	  	
-	  	var redirectlink = "https://dvhsbluecrew.github.io?token=" + response.token;
+	  	var redirectlink = "https://dvhsbluecrew.github.io/wfc/dashboard/index.html";
 	  	window.location.replace(redirectlink);
 	  }
 	});
