@@ -236,7 +236,6 @@ function tableNameSearch() {
       }
     }       
   }
-  sortTable(0);
 }
 
 function tableClassSearch() {
@@ -255,6 +254,7 @@ function tableClassSearch() {
       }
     }       
   }
+  sortTable(0);
 }
 
 //Get parameters from URL function
