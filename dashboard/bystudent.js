@@ -236,6 +236,7 @@ function tableNameSearch() {
       }
     }       
   }
+  sortTable(0);
 }
 
 function tableClassSearch() {
