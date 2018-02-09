@@ -142,6 +142,11 @@ function signout() {
 
 //Refresh Table
 function refreshtable() {
+  $("#tableresults tbody tr").remove();
+  var $node = null;
+  $node = $('<tr><td></td><td>Data is loading, please wait...</td><td></td><td></td><td></td></tr>');
+  $node.prependTo("#tablebody");
+  
   var token = getCookie("token");
   gettabledata(token);
 }
