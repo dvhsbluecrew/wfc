@@ -93,8 +93,7 @@ function addtotable(results) {
 
   for (var i = results.data.length - 1; i >= 0; i--) {
     var $node = null;
-    $node = $('<tr><td class="action"></td></tr>');
-    $node.find("td.action").html(results.data[i][1]);
+    $node = $('<tr><td>' + results.data[i][1] + '</td></tr>');
     $node.prependTo("#tablebody");
   }
 }
