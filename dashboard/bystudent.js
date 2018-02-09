@@ -117,7 +117,7 @@ function refreshtable() {
   var $node = null;
   $node = $('<tr><td></td><td>Data is loading, please wait...</td><td></td><td></td><td></td></tr>');
   $node.prependTo("#tablebody");
-  
+
   var token = getCookie("token");
   gettabledata(token);
 }
@@ -216,6 +216,43 @@ function sortTable(n) {
         switching = true;
       }
     }
+  }
+}
+
+//Table Search Functions
+function tableNameSearch() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("searchname");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("tableresults");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function tableClassSearch() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("searchclass");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("tableresults");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
   }
 }
 
