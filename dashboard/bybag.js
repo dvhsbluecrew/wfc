@@ -83,7 +83,7 @@ function addtotable(results) {
       var returned = "";
     }
 
-    $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + results.data[i][2] + '</td><td>' + returned + '</td><td>View Checkouts</td></tr>');
+    $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + checkout + '</td><td>' + returned + '</td><td>More Info</td></tr>');
     $node.prependTo("#tablebody");
   }
 }
