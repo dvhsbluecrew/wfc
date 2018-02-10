@@ -126,30 +126,6 @@ function signout() {
   });
 }
 
-//Delete Account Function
-function deleteaccount(username) {
-  var token = getCookie("token");
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=12&username=" + username;
-
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": urlstring,
-    "method": "GET"
-  };
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-
-    if(response.error == 0) {
-      refreshtable();
-    }
-    else {
-      notloggedin();
-    }
-  });
-}
-
 //Create New Account Function
 $(function() { //shorthand document.ready function
     $('#addaccount').on('submit', function(e) { //use on if jQuery 1.7+
@@ -212,10 +188,10 @@ function createaccount() {
   });
 }
 
-//Delete Token Function
+//Delete Account Function
 function deleteaccount(username) {
   var token = getCookie("token");
-  var urlstring = "https://script.google.com/macros/s/AKfycbz1rWpe0rP-Dmr9FQUI3OPTsoBbICmAyjAWR40HEW7TplU-nSSt/exec?token=" + token + "&username=" + username + "&content=9";
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=12&username=" + username;
 
   var settings = {
     "async": true,
