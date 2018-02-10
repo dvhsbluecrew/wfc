@@ -160,7 +160,7 @@ function createaccount() {
   var password = document.getElementById('password').value;
   var permissions = document.getElementById('permissions').value;
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&newname=" + newname + "&username=" + username + "&password=" + password + "&permissions=" + perm + "&content=11";
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&newname=" + newname + "&username=" + username + "&password=" + password + "&permissions=" + permissions + "&content=11";
 
   var settings = {
     "async": true,
