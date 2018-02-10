@@ -68,6 +68,7 @@ function addtotable(results) {
   for (var i = results.data.length - 1; i >= 0; i--) {
     var $node = null;
 
+    console.log(results.data[i][2]);
     if(results.data[i][2] !== 0) {
       var checkout = "Yes, at " + results.data[i][2];
 
