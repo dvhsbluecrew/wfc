@@ -128,7 +128,7 @@ function signout() {
 
 //Delete Account Function
 function deleteaccount(username) {
-  var token = document.getElementById('token').value;
+  var token = getCookie("token");
   var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=12&username=" + username;
 
   var settings = {
@@ -212,7 +212,7 @@ function createaccount() {
 
 //Delete Token Function
 function deleteaccount(username) {
-  var token = document.getElementById('token').value;
+  var token = getCookie("token");
   var urlstring = "https://script.google.com/macros/s/AKfycbz1rWpe0rP-Dmr9FQUI3OPTsoBbICmAyjAWR40HEW7TplU-nSSt/exec?token=" + token + "&username=" + username + "&content=9";
 
   var settings = {
@@ -271,7 +271,7 @@ function formsubmit() {
 
   //Get values from form
   var idnumber = document.getElementById('search').value;
-  var token = document.getElementById('token').value;
+  var token = getCookie("token");
 
   var urlstring = "https://script.google.com/macros/s/AKfycbzxPD0XVTHnUWMctHFjPiEzwnSX2CrFhtOqQux_6mAFT4cmbdsh/exec?id=" + idnumber + "&token=" + token;
 
