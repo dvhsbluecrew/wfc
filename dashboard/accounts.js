@@ -37,7 +37,7 @@ function onStartup() {
 //Get table data
 function gettabledata(token) {
   var token = getCookie("token");
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=2";
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=10";
 
   var settings = {
     "async": true,
@@ -64,7 +64,22 @@ function addtotable(results) {
 
   for (var i = results.data.length - 1; i >= 0; i--) {
     var $node = null;
-    $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + results.data[i][2] + '</td><td>' + results.data[i][3] + '</td><td>View Checkouts</td></tr>');
+
+    if(results.data[i][2] == 1) {
+      var active = "Yes";
+    }
+    else {
+      var active = "No";
+    }
+
+    if(results.data[i][3] == 1) {
+      var permissions = "Full Permissions";
+    }
+    else if(results.data[i][3] == 2) {
+      var permissions = "Checkout Only";
+    }
+
+    $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + active + '</td><td>' + permissions + '</td><td><a href="javascript:void(0);" onclick="deleteaccount(' + username + ')>Delete Account</a></td></tr>');
     $node.prependTo("#tablebody");
   }
 }
@@ -111,6 +126,30 @@ function signout() {
   });
 }
 
+//Delete Account Function
+function deleteaccount(username) {
+  var token = document.getElementById('token').value;
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=12&username=" + username;
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": urlstring,
+    "method": "GET"
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+
+    if(response.error == 0) {
+      refreshtable();
+    }
+    else {
+      notloggedin();
+    }
+  });
+}
+
 //Create New Account Function
 $(function() { //shorthand document.ready function
     $('#addaccount').on('submit', function(e) { //use on if jQuery 1.7+
@@ -136,8 +175,16 @@ function createaccount() {
   var newname = document.getElementById('name').value;
   var username = document.getElementById('username').value;
   var password = document.getElementById('password').value;
+  var permissions = document.getElementById('permissions').value;
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbz1rWpe0rP-Dmr9FQUI3OPTsoBbICmAyjAWR40HEW7TplU-nSSt/exec?token=" + token + "&newname=" + newname + "&username=" + username + "&password=" + password + "&content=10";
+  if(permissions == "Checkout Permissions Only") {
+    var perm = 2;
+  }
+  else if(permissions == "Full Dashboard Permissions") {
+    var perm = 1;
+  }
+
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&newname=" + newname + "&username=" + username + "&password=" + password + "&permissions=" + perm + "&content=11";
 
   var settings = {
     "async": true,
@@ -197,6 +244,7 @@ function refreshtable() {
   var token = getCookie("token");
   gettabledata(token);
 }
+
 
 //begin old stuff
 
