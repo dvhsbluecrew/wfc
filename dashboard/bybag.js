@@ -38,7 +38,7 @@ function onStartup() {
 function gettabledata(token) {
   //var token = getCookie("token");
 
-  var tablestart = document.getElementById('bagrange');
+  var tablestart = document.getElementById('bagrange').value;
 
   var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=1&tablestart=" + tablestart;
 
