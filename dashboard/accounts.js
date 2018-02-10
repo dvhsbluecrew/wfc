@@ -79,7 +79,12 @@ function addtotable(results) {
       var permissions = "Checkout Only";
     }
 
-    $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + active + '</td><td>' + permissions + '</td><td><a href="javascript:void(0);" onclick="deleteaccount(\'' + results.data[i][1] + '\')">Delete Account</a></td></tr>');
+    if(results.data[i][1] == results.login) {
+      $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + active + '</td><td>' + permissions + '</td><td>You can\'t delete your own account.</td></tr>');
+    }
+    else {
+      $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + active + '</td><td>' + permissions + '</td><td><a href="javascript:void(0);" onclick="deleteaccount(\'' + results.data[i][1] + '\')">Delete Account</a></td></tr>');
+    }
     $node.prependTo("#tablebody");
   }
 }
