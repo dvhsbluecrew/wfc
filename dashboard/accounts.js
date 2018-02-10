@@ -159,6 +159,8 @@ $(function() { //shorthand document.ready function
 });
 
 function createaccount() {
+  var token = getCookie("token");
+  
   var modaltitle = document.getElementById('modalTitle');
   var valid = document.getElementById('valid');
   var drinkpass = document.getElementById('drinkpass');
