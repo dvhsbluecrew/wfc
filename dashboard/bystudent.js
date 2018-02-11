@@ -144,7 +144,7 @@ function studentSearch(ID) {
 
   var token = getCookie("token");
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbwf392-istjSgvNWVR10L_PFLbLhQuq8L-xr_3culH12E1NJko/exec?token=" + token + "&id=" + ID + "&content=4";
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&id=" + ID + "&content=4";
 
   var settings = {
     "async": true,
