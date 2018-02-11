@@ -226,7 +226,7 @@ function bagSearch(bag) {
 
       if(response.timeout !== "") {
         if(response.timereturned !== "") {
-          if(response.balance !== 0) {
+          if(response.balance > 0) {
             bagState.innerHTML = "This bag has been returned, but still carries a balance.";
             bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
             bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
@@ -253,7 +253,7 @@ function bagSearch(bag) {
         bagReturn.innerHTML = "N/A";
       }
 
-      bagNotes.innerHTML = '';
+      bagNotes.innerHTML = response.notes;
     }
     else if(response.error == 1) {
       notloggedin();
@@ -266,10 +266,6 @@ function bagSearch(bag) {
 
   return false;
 }
-
-
-
-
 
 //Table Sort Function
 function sortTable(n) {
