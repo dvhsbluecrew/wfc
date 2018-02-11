@@ -134,19 +134,17 @@ function studentSearch(ID) {
   var studentName = document.getElementById('studentName');
   var studentInfo = document.getElementById('studentInfo');
 
-  $("#studentModal").modal();
-
   studentName.innerHTML = 'Please Wait...';
   studentInfo.innerHTML = '';
 
   $("#modalout tbody tr").remove();
   $("#modalin tbody tr").remove();
 
-  //Get values from form
-  var bagnumber = document.getElementById('search').value;
+  $("#studentModal").modal();
+
   var token = getCookie("token");
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbwf392-istjSgvNWVR10L_PFLbLhQuq8L-xr_3culH12E1NJko/exec?id=" + ID + "&content=4";
+  var urlstring = "https://script.google.com/macros/s/AKfycbwf392-istjSgvNWVR10L_PFLbLhQuq8L-xr_3culH12E1NJko/exec?token=" + token + "&id=" + ID + "&content=4";
 
   var settings = {
     "async": true,
