@@ -133,7 +133,7 @@ function signout() {
 //Refresh Table
 function refreshtable() {
   //testing
-  $("#myModal").modal();
+  $("#bagModal").modal();
 
   $("#tableresults tbody tr").remove();
   var $node = null;
