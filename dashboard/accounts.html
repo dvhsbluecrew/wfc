@@ -36,8 +36,8 @@
             <a class="nav-link" onclick="signout()" href="javascript:void(0);" id="signoutbutton">Sign Out</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" id="searchID">
-          <input class="form-control mr-sm-2" type="number" placeholder="Bag #" aria-label="Bag #" id="search" name="search">
+        <<form class="form-inline my-2 my-lg-0" id="searchBag">
+          <input class="form-control mr-sm-2" type="number" min="1" max="1000" placeholder="Bag #" aria-label="Bag #" id="search" name="search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="submit">Search</button>
         </form>
       </div>
@@ -156,21 +156,26 @@
       </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Bag Info Modal -->
+    <div class="modal fade" id="bagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">Scan an ID card!</h5>
+            <h5 class="modal-title" id="bagNumber">Bag</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" id="valid">
-            Student information will appear here after scan.
+          <div class="modal-body">
+            <p id="bagState">This bag has been checked out.</p>
+            <p id="bagBalance"></p>
+            <p>----------<br>This bag was checked out at:</p>
+            <p id="bagCheckout"></p>
+            <p>----------<br>This bag was returned at:</p>
+            <p id="bagReturn"></p>
+            <p>----------<br>The following notes were left for this bag:</p>
+            <p id="bagNotes"></p>
           </div>
-          <div class="modal-body" id="drinkpass"></div>
-          <div class="modal-body" id="guestpass"></div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
