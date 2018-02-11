@@ -163,11 +163,11 @@ function studentSearch(ID) {
         var $node = null;
 
         if(response.data[i][1] == false) {
-          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')>' + response.data[i][0] + '</a></td></tr>');
+          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')">' + response.data[i][0] + '</a></td></tr>');
           $node.prependTo("#modaloutbody");
         }
         else {
-          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')>' + response.data[i][0] + '</a></td></tr>');
+          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')">' + response.data[i][0] + '</a></td></tr>');
           $node.prependTo("#modalinbody");
         }
       }
