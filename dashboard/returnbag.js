@@ -81,6 +81,7 @@ function returnBagSearch() {
   var mbagState = document.getElementById('mbagState');
   var mbagBalance = document.getElementById('mbagBalance');
   var mbagAlert = document.getElementById('mbagAlert');
+  var bag = document.getElementById('bag');
   var amount = document.getElementById('amount');
   var notes = document.getElementById('notes');
 
@@ -93,7 +94,7 @@ function returnBagSearch() {
 
   var token = getCookie("token");
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&bag=" + bag + "&content=6";
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&bag=" + bag.value + "&content=6";
 
   var settings = {
     "async": true,
