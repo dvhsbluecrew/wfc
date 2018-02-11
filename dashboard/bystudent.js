@@ -221,7 +221,7 @@ function bagSearch(bag) {
 
   $.ajax(settings).done(function (response) {
     console.log(response);
-    if(response.error == 0) {
+    if(response.error == 0 || response.error == 6) {
       bagNumber.innerHTML = "Bag #" + response.bag + " (" + response.name + ")";
 
       if(response.timeout !== "") {
@@ -259,8 +259,8 @@ function bagSearch(bag) {
       notloggedin();
     }
     else{
-      studentName.innerHTML = 'Error (' + response.error + ')';
-      studentInfo.innerHTML = 'An error occurred. Please try again.';
+      bagState.innerHTML = 'Error (' + response.error + ')';
+      bagBalance.innerHTML = 'An error occurred. Please try again.';
     }
   });
 
