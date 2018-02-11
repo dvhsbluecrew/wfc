@@ -228,20 +228,20 @@ function bagSearch(bag) {
         if(response.timereturned !== "") {
           if(response.balance > 0) {
             bagState.innerHTML = "This bag has been returned, but still carries a balance.";
-            bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
+            bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
             bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
             bagReturn.innerHTML = response.timereturned + ", by " + response.returnedby;
           }
           else {
             bagState.innerHTML = "This bag has been returned and paid.";
-            bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
+            bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);;
             bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
             bagReturn.innerHTML = response.timereturned + ", by " + response.returnedby;
           }
         }
         else {
           bagState.innerHTML = "This bag has been checked out to " + response.name + ".";
-          bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
+          bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);;
           bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
           bagReturn.innerHTML = "N/A";
         }
