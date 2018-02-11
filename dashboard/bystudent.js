@@ -205,6 +205,7 @@ function bagSearch(bag) {
   bagReturn.innerHTML = '';
   bagNotes.innerHTML = '';
 
+  $('#studentModal').modal('hide');
   $("#bagModal").modal();
 
   var token = getCookie("token");
