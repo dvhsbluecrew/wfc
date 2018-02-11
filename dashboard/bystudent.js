@@ -153,7 +153,7 @@ function studentSearch(ID) {
     if(response.error == 0) {
       studentName.innerHTML = response.name + " (" + response.class + ")";
       studentInfo.innerHTML = response.fname + " has " + response.bagsout + " bags checked out and " + response.bagsin + " bags returned.";
-      studentBalance.innerHTML = "Remaining Balance: $" + response.owed + ".";
+      studentBalance.innerHTML = "Remaining Balance: $" + response.owed.toFixed(2) + ".";
 
       for (var i = response.data.length - 1; i >= 0; i--) {
         var $node = null;
