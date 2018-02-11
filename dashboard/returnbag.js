@@ -127,7 +127,7 @@ function returnBagSearch() {
     }
     else if(response.error == 5) {
       mbagNumber.innerHTML = "Bag #" + response.bag;
-      mbaAlert.innerHTML = "This bag has not been checked out."
+      mbagAlert.innerHTML = "This bag has not been checked out."
       mbagBalance.innerHTML = '';
     }
     else if(response.error == 1) {
