@@ -182,7 +182,7 @@ function studentSearch(ID) {
 
 //Bag Search / Form submit
 $(function() { //shorthand document.ready function
-    $('#search').on('submit', function(e) { //use on if jQuery 1.7+
+    $('#searchBag').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
 
         var search = document.getElementById('search').value;
@@ -234,14 +234,14 @@ function bagSearch(bag) {
           }
           else {
             bagState.innerHTML = "This bag has been returned and paid.";
-            bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);;
+            bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
             bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
             bagReturn.innerHTML = response.timereturned + ", by " + response.returnedby;
           }
         }
         else {
           bagState.innerHTML = "This bag has been checked out to " + response.name + ".";
-          bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);;
+          bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
           bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
           bagReturn.innerHTML = "N/A";
         }
