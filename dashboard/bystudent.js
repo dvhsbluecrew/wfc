@@ -149,7 +149,7 @@ function studentSearch(ID) {
   }
 
   $.ajax(settings).done(function (response) {
-    console.log(response);
+    //console.log(response);
     if(response.error == 0) {
       studentName.innerHTML = response.name + " (" + response.class + ")";
       studentInfo.innerHTML = response.fname + " has " + response.bagsout + " bags checked out and " + response.bagsin + " bags returned.";
@@ -220,7 +220,7 @@ function bagSearch(bag) {
   }
 
   $.ajax(settings).done(function (response) {
-    console.log(response);
+    //console.log(response);
     if(response.error == 0 || response.error == 6) {
       bagNumber.innerHTML = "Bag #" + response.bag + " (" + response.name + ")";
 
