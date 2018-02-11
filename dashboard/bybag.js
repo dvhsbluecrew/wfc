@@ -132,6 +132,9 @@ function signout() {
 
 //Refresh Table
 function refreshtable() {
+  //testing
+  $("#myModal").modal();
+
   $("#tableresults tbody tr").remove();
   var $node = null;
   $node = $('<tr><td></td><td>Data is loading, please wait...</td><td></td><td></td><td></td></tr>');
