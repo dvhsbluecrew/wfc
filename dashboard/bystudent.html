@@ -165,6 +165,7 @@
           </div>
           <div class="modal-body">
             <p id="studentInfo"></p>
+            <p id="studentBalance"></p>
             <p>Click on each bag to view more details.</p>
             <div class="row">
               <div class="col-6">
@@ -203,16 +204,21 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">Scan an ID card!</h5>
+            <h5 class="modal-title" id="bagNumber">Bag</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" id="valid">
-            Student information will appear here after scan.
+          <div class="modal-body">
+            <p id="bagState">This bag has been checked out.</p>
+            <p id="bagBalance"></p>
+            <p>----------<br>This bag was checked out at:</p>
+            <p id="bagCheckout"></p>
+            <p>----------<br>This bag was returned at:</p>
+            <p id="bagReturn"></p>
+            <p>----------<br>The following notes were left for this bag:</p>
+            <p id="bagNotes"></p>
           </div>
-          <div class="modal-body" id="drinkpass"></div>
-          <div class="modal-body" id="guestpass"></div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>

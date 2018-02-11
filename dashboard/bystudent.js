@@ -122,20 +122,15 @@ function refreshtable() {
   gettabledata(token);
 }
 
-//Form submit
-$(function() { //shorthand document.ready function
-    $('#searchID').on('submit', function(e) { //use on if jQuery 1.7+
-        e.preventDefault();  //prevent form from submitting
-        bagSearch();
-    });
-});
-
+//Student Search
 function studentSearch(ID) {
   var studentName = document.getElementById('studentName');
   var studentInfo = document.getElementById('studentInfo');
+  var studentBalance = document.getElementById('studentBalance');
 
   studentName.innerHTML = 'Please Wait...';
   studentInfo.innerHTML = '';
+  studentBalance.innerHTML = '';
 
   $("#modalout tbody tr").remove();
   $("#modalin tbody tr").remove();
@@ -158,16 +153,17 @@ function studentSearch(ID) {
     if(response.error == 0) {
       studentName.innerHTML = response.name + " (" + response.class + ")";
       studentInfo.innerHTML = response.fname + " has " + response.bagsout + " bags checked out and " + response.bagsin + " bags returned.";
+      studentBalance.innerHTML = "Remaining Balance: $" + response.owed + ".";
 
       for (var i = response.data.length - 1; i >= 0; i--) {
         var $node = null;
 
         if(response.data[i][1] == false) {
-          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')">' + response.data[i][0] + '</a></td></tr>');
+          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')">Bag #' + response.data[i][0] + '</a></td></tr>');
           $node.prependTo("#modaloutbody");
         }
         else {
-          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')">' + response.data[i][0] + '</a></td></tr>');
+          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')">Bag #' + response.data[i][0] + '</a></td></tr>');
           $node.prependTo("#modalinbody");
         }
       }
@@ -183,6 +179,96 @@ function studentSearch(ID) {
 
   return false;
 }
+
+//Bag Search / Form submit
+$(function() { //shorthand document.ready function
+    $('#search').on('submit', function(e) { //use on if jQuery 1.7+
+        e.preventDefault();  //prevent form from submitting
+
+        var search = document.getElementById('search').value;
+        bagSearch(search);
+    });
+});
+
+function bagSearch(bag) {
+  var bagNumber = document.getElementById('bagNumber');
+  var bagState = document.getElementById('bagState');
+  var bagBalance = document.getElementById('bagBalance');
+  var bagCheckout = document.getElementById('bagCheckout');
+  var bagReturn = document.getElementById('bagReturn');
+  var bagNotes = document.getElementById('bagNotes');
+
+  bagNumber.innerHTML = 'Please Wait...';
+  bagState.innerHTML = '';
+  bagBalance.innerHTML = '';
+  bagCheckout.innerHTML = '';
+  bagReturn.innerHTML = '';
+  bagNotes.innerHTML = '';
+
+  $("#bagModal").modal();
+
+  var token = getCookie("token");
+
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&bag=" + bag + "&content=6";
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": urlstring,
+    "method": "GET"
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    if(response.error == 0) {
+      bagNumber.innerHTML = "Bag #" + response.bag + " (" + response.name + ")";
+
+      if(timeout !== "") {
+        if(timereturned !== "") {
+          if(balance !== 0) {
+            bagState.innerHTML = "This bag has been returned, but still carries a balance.";
+            bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
+            bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
+            bagReturn.innerHTML = response.timereturned + ", by " + response.returnedby;
+          }
+          else {
+            bagState.innerHTML = "This bag has been returned and paid.";
+            bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
+            bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
+            bagReturn.innerHTML = response.timereturned + ", by " + response.returnedby;
+          }
+        }
+        else {
+          bagState.innerHTML = "This bag has been checked out to " + response.name + ".";
+          bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
+          bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
+          bagReturn.innerHTML = "N/A";
+        }
+      }
+      else {
+        bagState.innerHTML = "This bag has not been checked out."
+        bagBalance.innerHTML = '';
+        bagCheckout.innerHTML = "N/A";
+        bagReturn.innerHTML = "N/A";
+      }
+
+      bagNotes.innerHTML = '';
+    }
+    else if(response.error == 1) {
+      notloggedin();
+    }
+    else{
+      studentName.innerHTML = 'Error (' + response.error + ')';
+      studentInfo.innerHTML = 'An error occurred. Please try again.';
+    }
+  });
+
+  return false;
+}
+
+
+
+
 
 //Table Sort Function
 function sortTable(n) {
