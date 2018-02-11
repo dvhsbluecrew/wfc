@@ -75,7 +75,73 @@ function signout() {
   });
 }
 
+//Return Bag Search
+function returnBagSearch() {
+  var mbagNumber = document.getElementById('mbagNumber');
+  var mbagState = document.getElementById('mbagState');
+  var mbagBalance = document.getElementById('mbagBalance');
+  var mbagAlert = document.getElementById('mbagAlert');
+  var amount = document.getElementById('amount');
+  var notes = document.getElementById('notes');
 
+  mbagNumber.innerHTML = 'Please Wait...';
+  mbagState.innerHTML = '';
+  mbagBalance.innerHTML = '';
+  mbagAlert.innerHTML = '';
+  amount.value = '';
+  notes.value = '';
+
+  var token = getCookie("token");
+
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&bag=" + bag + "&content=6";
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": urlstring,
+    "method": "GET"
+  }
+
+  $.ajax(settings).done(function (response) {
+    //console.log(response);
+    if(response.error == 0 || response.error == 6) {
+      mbagNumber.innerHTML = "Bag #" + response.bag + " (" + response.name + ")";
+
+      if(response.timeout !== "") {
+        if(response.timereturned !== "") {
+          if(response.balance > 0) {
+            mbagState.innerHTML = "This bag has been returned, but still carries a balance.";
+            mbagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+          }
+          else {
+            mbagAlert.innerHTML = "This bag has been returned and paid.";
+            mbagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+          }
+        }
+        else {
+          mbagState.innerHTML = "This bag has been checked out to " + response.name + ".";
+          mbagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+        }
+      }
+    }
+    else if(response.error == 5) {
+      mbagNumber.innerHTML = "Bag #" + response.bag;
+      mbaAlert.innerHTML = "This bag has not been checked out."
+      mbagBalance.innerHTML = '';
+    }
+    else if(response.error == 1) {
+      notloggedin();
+    }
+    else{
+      mbagState.innerHTML = 'Error (' + response.error + ')';
+      mbagBalance.innerHTML = 'An error occurred. Please try again.';
+    }
+
+    notes.value = response.notes;
+  });
+
+  return false;
+}
 
 
 
@@ -90,18 +156,6 @@ $(function() { //shorthand document.ready function
 
 function returnBag() {
   var token = getCookie("token");
-
-  var modaltitle = document.getElementById('modalTitle');
-  var valid = document.getElementById('valid');
-  var drinkpass = document.getElementById('drinkpass');
-  var guestpass = document.getElementById('guestpass');
-
-  $("#myModal").modal();
-
-  modaltitle.innerHTML = 'Please Wait...';
-  valid.innerHTML = 'We are creating your new account...';
-  drinkpass.innerHTML = '';
-  guestpass.innerHTML = '';
 
   //Get values from form
   var newname = document.getElementById('name').value;

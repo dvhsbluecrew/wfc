@@ -101,12 +101,14 @@
           <form id="bagcheck">
             <div class="form-group">
               <label for="bag">Enter a bag number. Bag information will appear after entering a bag number.</label>
-              <input type="number" min="1" max="1000" class="form-control" placeholder="Bag #" id="bag" name="bag" required>
+              <input type="number" min="1" max="1000" class="form-control" oninput="returnBagSearch()" placeholder="Bag #" id="bag" name="bag" required>
             </div>
           </form>
 
-          <h2>Bag #1</h2>
-          <p>Place other important bag information here.</p>
+          <h2 id="mbagNumber">Enter a bag number</h2>
+          <p id="mbagState"></p>
+          <p style="color:red" id="mbagAlert"></p>
+          <p id="mbagBalance"></p>
 
           <form id="returnbag">
             <div class="form-group">
