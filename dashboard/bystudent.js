@@ -246,14 +246,12 @@ function bagSearch(bag) {
           bagReturn.innerHTML = "N/A";
         }
       }
-      else {
-        bagState.innerHTML = "This bag has not been checked out."
+    }
+    else if(response.error == 5) {
+      bagState.innerHTML = "This bag has not been checked out."
         bagBalance.innerHTML = '';
         bagCheckout.innerHTML = "N/A";
         bagReturn.innerHTML = "N/A";
-      }
-
-      bagNotes.innerHTML = response.notes;
     }
     else if(response.error == 1) {
       notloggedin();
@@ -262,6 +260,8 @@ function bagSearch(bag) {
       bagState.innerHTML = 'Error (' + response.error + ')';
       bagBalance.innerHTML = 'An error occurred. Please try again.';
     }
+
+    bagNotes.innerHTML = response.notes;
   });
 
   return false;
