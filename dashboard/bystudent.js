@@ -223,9 +223,9 @@ function bagSearch(bag) {
     if(response.error == 0) {
       bagNumber.innerHTML = "Bag #" + response.bag + " (" + response.name + ")";
 
-      if(timeout !== "") {
-        if(timereturned !== "") {
-          if(balance !== 0) {
+      if(response.timeout !== "") {
+        if(response.timereturned !== "") {
+          if(response.balance !== 0) {
             bagState.innerHTML = "This bag has been returned, but still carries a balance.";
             bagBalance.innerHTML = "Remaining Balance: $" + response.balance;
             bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
