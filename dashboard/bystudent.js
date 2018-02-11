@@ -64,7 +64,7 @@ function addtotable(results) {
 
   for (var i = results.data.length - 1; i >= 0; i--) {
     var $node = null;
-    $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + results.data[i][2] + '</td><td>' + results.data[i][3] + '</td><td>View Checkouts</td></tr>');
+    $node = $('<tr><td>' + results.data[i][0] + '</td><td>' + results.data[i][1] + '</td><td>' + results.data[i][2] + '</td><td>' + results.data[i][3] + '</td><td><a href="javascript:void(0);" onclick="studentSearch(' + results.data[i][4] + ')">View Info</a></td></tr>');
     $node.prependTo("#tablebody");
   }
 }
@@ -126,28 +126,27 @@ function refreshtable() {
 $(function() { //shorthand document.ready function
     $('#searchID').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
-        formsubmit();
+        bagSearch();
     });
 });
 
-function formsubmit() {
-  var modaltitle = document.getElementById('modalTitle');
-  var valid = document.getElementById('valid');
-  var drinkpass = document.getElementById('drinkpass');
-  var guestpass = document.getElementById('guestpass');
+function studentSearch(ID) {
+  var studentName = document.getElementById('studentName');
+  var studentInfo = document.getElementById('studentInfo');
 
-  $("#myModal").modal();
+  $("#studentModal").modal();
 
-  modaltitle.innerHTML = 'Please Wait...';
-  valid.innerHTML = '';
-  drinkpass.innerHTML = '';
-  guestpass.innerHTML = '';
+  studentName.innerHTML = 'Please Wait...';
+  studentInfo.innerHTML = '';
+
+  $("#modalout tbody tr").remove();
+  $("#modalin tbody tr").remove();
 
   //Get values from form
   var bagnumber = document.getElementById('search').value;
   var token = getCookie("token");
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=6";
+  var urlstring = "https://script.google.com/macros/s/AKfycbwf392-istjSgvNWVR10L_PFLbLhQuq8L-xr_3culH12E1NJko/exec?id=" + ID + "&content=4";
 
   var settings = {
     "async": true,
@@ -157,7 +156,30 @@ function formsubmit() {
   }
 
   $.ajax(settings).done(function (response) {
-    //stuff
+    if(response.error == 0) {
+      studentName.innerHTML = response.name + " (" + response.class + ")";
+      studentInfo.innerHTML = response.fname + " has " + response.bagsout + " bags checked out and " + response.bagsin + " bags returned.";
+
+      for (var i = results.data.length - 1; i >= 0; i--) {
+        var $node = null;
+
+        if(response.data[i][1] == false) {
+          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')>' + response.data[i][0] + '</a></td></tr>');
+          $node.prependTo("#modaloutbody");
+        }
+        else {
+          $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + response.data[i][0] + ')>' + response.data[i][0] + '</a></td></tr>');
+          $node.prependTo("#modalinbody");
+        }
+      }
+    }
+    else if(response.error == 1) {
+      notloggedin();
+    }
+    else{
+      studentName.innerHTML = 'Error';
+      studentInfo.innerHTML = 'An error occurred. Please try again.';
+    }
   });
 
   return false;
