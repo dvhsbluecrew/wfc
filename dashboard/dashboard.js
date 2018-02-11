@@ -93,7 +93,7 @@ function addtotable(results) {
 
   for (var i = results.data.length - 1; i >= 0; i--) {
     var $node = null;
-    $node = $('<tr><td>' + results.data[i][1] + '</td></tr>');
+    $node = $('<tr><td><a href="javascript:void(0);" onclick="bagSearch(' + results.data[i][0] + ')">Bag #' + results.data[i][0] + '</a></td><td>' + results.data[i][1] + '</td></tr>');
     $node.prependTo("#tablebody");
   }
 }
@@ -144,39 +144,44 @@ function signout() {
 function refreshtable() {
   $("#tableresults tbody tr").remove();
   var $node = null;
-  $node = $('<tr><td></td><td>Data is loading, please wait...</td><td></td><td></td><td></td></tr>');
+  $node = $('<tr><td>Data is loading, please wait...</td><td></td></tr>');
   $node.prependTo("#tablebody");
   
   var token = getCookie("token");
   gettabledata(token);
 }
 
-//Form submit
+//Bag Search / Form submit
 $(function() { //shorthand document.ready function
-    $('#searchID').on('submit', function(e) { //use on if jQuery 1.7+
+    $('#searchBag').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
-        formsubmit();
+
+        var search = document.getElementById('search').value;
+        bagSearch(search);
     });
 });
 
-function formsubmit() {
-  var modaltitle = document.getElementById('modalTitle');
-  var valid = document.getElementById('valid');
-  var drinkpass = document.getElementById('drinkpass');
-  var guestpass = document.getElementById('guestpass');
+function bagSearch(bag) {
+  var bagNumber = document.getElementById('bagNumber');
+  var bagState = document.getElementById('bagState');
+  var bagBalance = document.getElementById('bagBalance');
+  var bagCheckout = document.getElementById('bagCheckout');
+  var bagReturn = document.getElementById('bagReturn');
+  var bagNotes = document.getElementById('bagNotes');
 
-  $("#myModal").modal();
+  bagNumber.innerHTML = 'Please Wait...';
+  bagState.innerHTML = '';
+  bagBalance.innerHTML = '';
+  bagCheckout.innerHTML = '';
+  bagReturn.innerHTML = '';
+  bagNotes.innerHTML = '';
 
-  modaltitle.innerHTML = 'Please Wait...';
-  valid.innerHTML = '';
-  drinkpass.innerHTML = '';
-  guestpass.innerHTML = '';
+  $('#studentModal').modal('hide');
+  $("#bagModal").modal();
 
-  //Get values from form
-  var bagnumber = document.getElementById('search').value;
   var token = getCookie("token");
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&content=6";
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&bag=" + bag + "&content=6";
 
   var settings = {
     "async": true,
@@ -186,7 +191,49 @@ function formsubmit() {
   }
 
   $.ajax(settings).done(function (response) {
-    //stuff
+    //console.log(response);
+    if(response.error == 0 || response.error == 6) {
+      bagNumber.innerHTML = "Bag #" + response.bag + " (" + response.name + ")";
+
+      if(response.timeout !== "") {
+        if(response.timereturned !== "") {
+          if(response.balance > 0) {
+            bagState.innerHTML = "This bag has been returned, but still carries a balance.";
+            bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+            bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
+            bagReturn.innerHTML = response.timereturned + ", by " + response.returnedby;
+          }
+          else {
+            bagState.innerHTML = "This bag has been returned and paid.";
+            bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+            bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
+            bagReturn.innerHTML = response.timereturned + ", by " + response.returnedby;
+          }
+        }
+        else {
+          bagState.innerHTML = "This bag has been checked out to " + response.name + ".";
+          bagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+          bagCheckout.innerHTML = response.timeout + ", by " + response.checkedoutby;
+          bagReturn.innerHTML = "N/A";
+        }
+      }
+    }
+    else if(response.error == 5) {
+      bagNumber.innerHTML = "Bag #" + response.bag;
+      bagState.innerHTML = "This bag has not been checked out."
+      bagBalance.innerHTML = '';
+      bagCheckout.innerHTML = "N/A";
+      bagReturn.innerHTML = "N/A";
+    }
+    else if(response.error == 1) {
+      notloggedin();
+    }
+    else{
+      bagState.innerHTML = 'Error (' + response.error + ')';
+      bagBalance.innerHTML = 'An error occurred. Please try again.';
+    }
+
+    bagNotes.innerHTML = response.notes;
   });
 
   return false;
