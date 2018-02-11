@@ -159,7 +159,7 @@ function studentSearch(ID) {
       studentName.innerHTML = response.name + " (" + response.class + ")";
       studentInfo.innerHTML = response.fname + " has " + response.bagsout + " bags checked out and " + response.bagsin + " bags returned.";
 
-      for (var i = results.data.length - 1; i >= 0; i--) {
+      for (var i = response.data.length - 1; i >= 0; i--) {
         var $node = null;
 
         if(response.data[i][1] == false) {
