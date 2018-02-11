@@ -72,7 +72,7 @@ function addtotable(results) {
       var checkout = "Yes, at " + results.data[i][2];
 
       if(results.data[i][4] > 0) {
-        var returned = "No. Remaining balance: $" + results.data[i][4];
+        var returned = "No. Remaining balance: $" + results.data[i][4].toFixed(2);
       }
       else {
         var returned = "Yes, at " + results.data[i][3];
@@ -212,10 +212,11 @@ function bagSearch(bag) {
       }
     }
     else if(response.error == 5) {
+      bagNumber.innerHTML = "Bag #" + response.bag;
       bagState.innerHTML = "This bag has not been checked out."
-        bagBalance.innerHTML = '';
-        bagCheckout.innerHTML = "N/A";
-        bagReturn.innerHTML = "N/A";
+      bagBalance.innerHTML = '';
+      bagCheckout.innerHTML = "N/A";
+      bagReturn.innerHTML = "N/A";
     }
     else if(response.error == 1) {
       notloggedin();

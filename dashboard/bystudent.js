@@ -248,10 +248,11 @@ function bagSearch(bag) {
       }
     }
     else if(response.error == 5) {
+      bagNumber.innerHTML = "Bag #" + response.bag;
       bagState.innerHTML = "This bag has not been checked out."
-        bagBalance.innerHTML = '';
-        bagCheckout.innerHTML = "N/A";
-        bagReturn.innerHTML = "N/A";
+      bagBalance.innerHTML = '';
+      bagCheckout.innerHTML = "N/A";
+      bagReturn.innerHTML = "N/A";
     }
     else if(response.error == 1) {
       notloggedin();
