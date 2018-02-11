@@ -230,7 +230,6 @@ function bagSearch(bag) {
 
   return false;
 }
-}
 
 //Table Sort Function
 function sortTable(n) {
