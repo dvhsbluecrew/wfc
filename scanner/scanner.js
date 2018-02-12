@@ -104,7 +104,7 @@ function studentSearch() {
 
 //Checkout Bag Function
 $(function() { //shorthand document.ready function
-    $('#returnbag').on('submit', function(e) { //use on if jQuery 1.7+
+    $('#checkoutBag').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
         checkoutBag();
     });
