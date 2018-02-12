@@ -47,12 +47,14 @@ $(function() { //shorthand document.ready function
 function studentSearch() {
 	var idnumber = document.getElementById('search');
 	var bag = document.getElementById('bagsearch');
+	var title = document.getElementById('title');
   var studentName = document.getElementById('studentName');
   var studentInfo = document.getElementById('studentInfo');
   var bagsubmit = document.getElementById('bagsubmit');
   var checkoutSuccess = document.getElementById('checkoutSuccess');
   var checkoutAlert = document.getElementById('checkoutAlert');
 
+  title.innerHTML = 'Please Wait...';
   studentName.innerHTML = 'Please Wait...';
   studentInfo.innerHTML = '';
   checkoutSuccess.innerHTML = '';
@@ -76,12 +78,14 @@ function studentSearch() {
   $.ajax(settings).done(function (response) {
     //console.log(response);
     if(response.error == 0) {
+      title.innerHTML = response.name + " (" + response.class + ")";
       studentName.innerHTML = response.name + " (" + response.class + ")";
       studentInfo.innerHTML = response.fname + " has " + response.bagsout + " bags checked out and " + response.bagsin + " bags returned.";
       bag.disabled = false;
       bagsubmit.disabled = false;
     }
     else if(response.error == 3) {
+      title.innerHTML = "Unable to find ID";
       studentName.innerHTML = "Unable to find ID";
       studentInfo.innerHTML = "If the student is in Orchestra and this is their first checkout for this year, please click here.<br>Otherwise, try scanning again.";
     }
@@ -89,12 +93,72 @@ function studentSearch() {
       notloggedin();
     }
     else{
+      title.innerHTML = 'Error (' + response.error + ')';
       studentName.innerHTML = 'Error (' + response.error + ')';
       studentInfo.innerHTML = 'An error occurred. Please try again.';
     }
   });
 
   return false;
+}
+
+//Checkout Bag Function
+$(function() { //shorthand document.ready function
+    $('#returnbag').on('submit', function(e) { //use on if jQuery 1.7+
+        e.preventDefault();  //prevent form from submitting
+        checkoutBag();
+    });
+});
+
+function checkoutBag() {
+  var token = getCookie("token");
+
+  var idnumber = document.getElementById('search');
+	var bag = document.getElementById('bagsearch');
+  var bagsubmit = document.getElementById('bagsubmit');
+  var checkoutSuccess = document.getElementById('checkoutSuccess');
+  var checkoutAlert = document.getElementById('checkoutAlert');
+
+  bagsubmit.disabled = true;
+  bagsubmit.innerHTML = "Please Wait...";
+  checkoutSuccess.innerHTML = '';
+  checkoutAlert.innerHTML = '';
+
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&bag=" + bag.value + "&id=" + idnumber.value + "&content=5";
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": urlstring,
+    "method": "GET"
+  }
+
+  $.ajax(settings).done(function (response) {
+    if(response.error == 0) {
+    	bag.value = '';
+    	checkoutSuccess.innerHTML = "Success! Bag #" + response.data[1] + "was checked out!"
+
+      setTimeout(studentSearch(), 1500);
+    }
+    else if(response.error == 4) {
+      checkoutAlert.innerHTML = "This bag has already been checked out. Please check your bag number."
+
+      bagsubmit.disabled = false;
+  		bagsubmit.innerHTML = "Checkout Bag";
+    }
+    else if(response.error == 1) {
+      notloggedin();
+    }
+    else {
+      checkoutAlert.innerHTML = "An error occurred. Please try again."
+
+      bagsubmit.disabled = false;
+  		bagsubmit.innerHTML = "Checkout Bag";
+    }
+
+    bagsubmit.innerHTML = "Return Bag";
+    returnBagSearch();
+  });
 }
 
 //Sign Out / Not Logged In Scripts
