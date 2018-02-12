@@ -76,21 +76,33 @@ function signout() {
 }
 
 //Return Bag Search
+
+//Prevent bag number form from submitting
+$(function() { //shorthand document.ready function
+    $('#bagcheck').on('submit', function(e) { //use on if jQuery 1.7+
+        e.preventDefault();  //prevent form from submitting
+    });
+});
+
 function returnBagSearch() {
   var mbagNumber = document.getElementById('mbagNumber');
   var mbagState = document.getElementById('mbagState');
   var mbagBalance = document.getElementById('mbagBalance');
   var mbagAlert = document.getElementById('mbagAlert');
+  var mSubmitAlert = document.getElementById('mSubmitAlert');
   var bag = document.getElementById('bag');
   var amount = document.getElementById('amount');
   var notes = document.getElementById('notes');
+  var bagsubmit = document.getElementById('bagsubmit');
 
   mbagNumber.innerHTML = 'Please Wait...';
   mbagState.innerHTML = '';
   mbagBalance.innerHTML = '';
   mbagAlert.innerHTML = '';
+  mSubmitAlert.innerHTML = '';
   amount.value = '';
   notes.value = '';
+  bagsubmit.disabled = true;
 
   var token = getCookie("token");
 
@@ -113,6 +125,7 @@ function returnBagSearch() {
           if(response.balance > 0) {
             mbagState.innerHTML = "This bag has been returned, but still carries a balance.";
             mbagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+            bagsubmit.disabled = false;
           }
           else {
             mbagAlert.innerHTML = "This bag has been returned and paid.";
@@ -122,6 +135,7 @@ function returnBagSearch() {
         else {
           mbagState.innerHTML = "This bag has been checked out to " + response.name + ".";
           mbagBalance.innerHTML = "Remaining Balance: $" + response.balance.toFixed(2);
+          bagsubmit.disabled = false;
         }
       }
     }
@@ -147,7 +161,7 @@ function returnBagSearch() {
 
 
 
-//Create New Account Function
+//Return Bag Function
 $(function() { //shorthand document.ready function
     $('#returnbag').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
@@ -158,13 +172,17 @@ $(function() { //shorthand document.ready function
 function returnBag() {
   var token = getCookie("token");
 
-  //Get values from form
-  var newname = document.getElementById('name').value;
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
-  var permissions = document.getElementById('permissions').value;
+  var bag = document.getElementById('bag');
+  var amount = document.getElementById('amount');
+  var notes = document.getElementById('notes');
+  var bagsubmit = document.getElementById('bagsubmit');
+  var mSubmitAlert = document.getElementById('mSubmitAlert');
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&newname=" + newname + "&username=" + username + "&password=" + password + "&permissions=" + permissions + "&content=11";
+  bagsubmit.disabled = true;
+  bagsubmit.innerHTML = "Please Wait...";
+  mSubmitAlert.innerHTML = '';
+
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&bag=" + bag.value + "&amount=" + amount.value + "&notes=" + notes.value + "&content=7";
 
   var settings = {
     "async": true,
@@ -174,19 +192,23 @@ function returnBag() {
   }
 
   $.ajax(settings).done(function (response) {
-    var newnamefield = document.getElementById('name');
-    var usernamefield = document.getElementById('username');
-    var passwordfield = document.getElementById('password');
-    newnamefield.value = "";
-    usernamefield.value = "";
-    passwordfield.value = "";
+    if(response.error == 0) {
+      amount.value = '';
+      notes.value = '';
+      mSubmitAlert.innerHTML = "Request complete! Thank you for returning this bag."
+    }
+    else if(response.error == 6) {
+      mSubmitAlert.innerHTML = "This bag has already been fully paid. Please check your bag number."
+    }
+    else if(response.error == 1) {
+      notloggedin();
+    }
+    else {
+      mSubmitAlert.innerHTML = "An error occurred. Please try again."
+    }
 
-    modaltitle.innerHTML = 'Success!';
-    valid.innerHTML = 'Your new username is: ' + response.data[0];
-    drinkpass.innerHTML = 'This account belongs to: ' + response.data[1];
-    guestpass.innerHTML = '';
-
-    refreshtable();
+    bagsubmit.innerHTML = "Return Bag";
+    returnBagSearch();
   });
 }
 
