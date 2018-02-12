@@ -132,7 +132,7 @@ function checkoutBag() {
   $.ajax(settings).done(function (response) {
     if(response.error == 0) {
     	bag.value = '';
-    	checkoutSuccess.innerHTML = "Success! Bag #" + response.data[1] + "was checked out to " + response.name + "!";
+    	checkoutSuccess.innerHTML = "Success! Bag #" + response.data[1] + " was checked out to " + response.name + "!";
 
       studentSearch();
     }
