@@ -144,7 +144,6 @@ function checkoutBag() {
       checkoutAlert.innerHTML = "This bag has already been checked out. Please check your bag number."
 
       bagsubmit.disabled = false;
-  		bagsubmit.innerHTML = "Checkout Bag";
     }
     else if(response.error == 1) {
       notloggedin();
@@ -153,11 +152,8 @@ function checkoutBag() {
       checkoutAlert.innerHTML = "An error occurred. Please try again."
 
       bagsubmit.disabled = false;
-  		bagsubmit.innerHTML = "Checkout Bag";
     }
-
-    bagsubmit.innerHTML = "Return Bag";
-    returnBagSearch();
+    bagsubmit.innerHTML = "Checkout Bag";
   });
 }
 
