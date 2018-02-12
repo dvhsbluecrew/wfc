@@ -51,14 +51,10 @@ function studentSearch() {
   var studentName = document.getElementById('studentName');
   var studentInfo = document.getElementById('studentInfo');
   var bagsubmit = document.getElementById('bagsubmit');
-  var checkoutSuccess = document.getElementById('checkoutSuccess');
-  var checkoutAlert = document.getElementById('checkoutAlert');
 
   title.innerHTML = 'Please Wait...';
   studentName.innerHTML = 'Please Wait...';
   studentInfo.innerHTML = '';
-  checkoutSuccess.innerHTML = '';
-  checkoutAlert.innerHTML = '';
   bag.disabled = true;
   bagsubmit.disabled = true;
 
@@ -136,12 +132,12 @@ function checkoutBag() {
   $.ajax(settings).done(function (response) {
     if(response.error == 0) {
     	bag.value = '';
-    	checkoutSuccess.innerHTML = "Success! Bag #" + response.data[1] + "was checked out!"
+    	checkoutSuccess.innerHTML = "Success! Bag #" + response.data[1] + "was checked out to " + response.name + "!";
 
-      setTimeout(studentSearch(), 1500);
+      studentSearch();
     }
     else if(response.error == 4) {
-      checkoutAlert.innerHTML = "This bag has already been checked out. Please check your bag number."
+      checkoutAlert.innerHTML = "This bag has already been checked out. Please check your bag number.";
 
       bagsubmit.disabled = false;
     }
@@ -149,7 +145,7 @@ function checkoutBag() {
       notloggedin();
     }
     else {
-      checkoutAlert.innerHTML = "An error occurred. Please try again."
+      checkoutAlert.innerHTML = "An error occurred. Please try again.";
 
       bagsubmit.disabled = false;
     }
