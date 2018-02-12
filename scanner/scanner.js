@@ -46,6 +46,7 @@ $(function() { //shorthand document.ready function
 
 function studentSearch() {
 	var idnumber = document.getElementById('search');
+	var bag = document.getElementById('bagsearch');
   var studentName = document.getElementById('studentName');
   var studentInfo = document.getElementById('studentInfo');
   var bagsubmit = document.getElementById('bagsubmit');
@@ -56,6 +57,7 @@ function studentSearch() {
   studentInfo.innerHTML = '';
   checkoutSuccess.innerHTML = '';
   checkoutAlert.innerHTML = '';
+  bag.disabled = true;
   bagsubmit.disabled = true;
 
   $("#studentModal").modal();
@@ -76,6 +78,7 @@ function studentSearch() {
     if(response.error == 0) {
       studentName.innerHTML = response.name + " (" + response.class + ")";
       studentInfo.innerHTML = response.fname + " has " + response.bagsout + " bags checked out and " + response.bagsin + " bags returned.";
+      bag.disabled = false;
       bagsubmit.disabled = false;
     }
     else if(response.error == 3) {
