@@ -39,7 +39,7 @@ function gettabledata(token) {
   var token = getCookie("token");
   input = document.getElementById("searchclass");
 
-  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&class=" + searchclass + "&content=2";
+  var urlstring = "https://script.google.com/macros/s/AKfycbyKkt4S9bOnGHHYdtx5dqk3mRV3ckz0JJM88WXq_8IXlY77aJZc/exec?token=" + token + "&class=" + searchclass.value + "&content=2";
 
   var settings = {
     "async": true,
