@@ -158,9 +158,6 @@ function returnBagSearch() {
   return false;
 }
 
-
-
-
 //Return Bag Function
 $(function() { //shorthand document.ready function
     $('#returnbag').on('submit', function(e) { //use on if jQuery 1.7+
